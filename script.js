@@ -88,4 +88,71 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("Área de cliente em demonstração. Para login real, é necessário conectar autenticação e banco de dados.");
     closeLogin();
   });
-});
+});   
+
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+const supabaseUrl = 'https://hvkfiaexfyrbjhqstitq.supabase.co';
+const supabaseKey = 'sb_publishable_6Rv9dUTeq-UGJPGreo2-tw_0LYxPfWs';
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+// Exemplo: Buscar serviços para preencher a página de agendamento dinamicamente
+async function loadServices() {
+    const { data, error } = await supabase.from('services').select('*');
+    if (error) {
+        console.error('Erro ao carregar serviços:', error);
+        return;
+    }
+    console.log('Serviços disponíveis:', data);
+    // Aqui pode popular o seu <select> ou lista de preços no HTML
+}  
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+const supabaseUrl = 'https://hvkfiaexfyrbjhqstitq.supabase.co';
+const supabaseKey = 'sb_publishable_6Rv9dUTeq-UGJPGreo2-tw_0LYxPfWs';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Exemplo: Função para enviar um agendamento quando o utilizador preencher o formulário
+document.addEventListener('DOMContentLoaded', () => {
+    const formAgendamento = document.querySelector('#form-agendamento'); // Ajuste o seletor conforme o ID do seu formulário HTML
+
+    if (formAgendamento) {
+        formAgendamento.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Recolher os dados dos campos do formulário (ajuste os IDs conforme os seus inputs)
+            const nomeCliente = document.querySelector('#nome').value;
+            const emailCliente = document.querySelector('#email').value;
+            const telefoneCliente = document.querySelector('#telefone').value;
+            const servicoId = document.querySelector('#servico').value;
+            const dataHora = document.querySelector('#data-hora').value;
+            const profissionalId = document.querySelector('#profissional').value;
+
+            try {
+                // 1. Inserir ou garantir que o cliente existe (ou criar direto se tiver a tabela clients)
+                // Para simplificar, vamos assumir que insere diretamente na tabela de agendamentos ou cria o cliente primeiro:
+                
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .insert([
+                        { 
+                            // Se estiver a usar IDs relacionados, pode precisar de inserir o cliente antes ou mapear os selects
+                            appointment_date: dataHora,
+                            status: 'confirmed'
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                alert('Agendamento realizado com sucesso!');
+                formAgendamento.reset();
+
+            } catch (error) {
+                console.error('Erro ao agendar:', error.message);
+                alert('Ocorreu um erro ao realizar o agendamento. Tente novamente.');
+            }
+        });
+    }
+});  
