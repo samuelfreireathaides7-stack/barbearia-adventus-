@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detalhes dos planos da Barbearia Adventus.">
+  <title>Planos Adventus | Barbearia Adventus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="plan-detail-page">
+    <div class="plan-detail-wrap">
+      <div class="plan-detail-nav">
+        <a class="plan-detail-brand" href="index.html"><img src="logo.png" alt="Barbearia Adventus"></a>
+        <a class="plan-detail-back" href="index.html#planos">← Voltar para os planos</a>
+      </div>
+
+      <section class="plan-detail-hero">
+        <div class="plan-detail-kicker"><span>BARBEARIA ADVENTUS</span><span id="planNumber">PLANO</span></div>
+        <h1 id="planName">Plano Adventus</h1>
+        <p class="plan-detail-subtitle" id="planSubtitle">Conheça todos os detalhes do seu plano.</p>
+        <div class="plan-detail-price" id="planPrice"></div>
+        <div class="plan-detail-rule"></div>
+        <div class="plan-detail-content">
+          <div class="plan-detail-box">
+            <h2>Vantagens do plano</h2>
+            <ul class="plan-detail-benefits" id="planBenefits"></ul>
+          </div>
+          <div class="plan-detail-box">
+            <h2>Informações</h2>
+            <div class="plan-detail-info">
+              <div><span>Vigência</span><strong>Indeterminada</strong></div>
+              <div><span>Benefício especial</span><strong>Prioridade no agendamento</strong></div>
+              <div><span>Atendimento</span><strong>Barbearia Adventus</strong></div>
+            </div>
+            <div class="plan-detail-actions">
+              <a class="gold-btn" id="whatsappPlan" href="#" target="_blank" rel="noopener">Assinar pelo WhatsApp ↗</a>
+              <a class="outline-btn" href="agendamento.html">Agendar pelo site ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const plans = {
+      prime: {number:'01', name:'Prime Mensal', subtitle:'8 Serviços', price:'240', cents:',00', benefits:['8 serviços por mês','Corte e barba inclusos','Prioridade no agendamento','Atendimento exclusivo aos assinantes','Mais praticidade e economia']},
+      luxo: {number:'02', name:'Luxo Mensal', subtitle:'6 Serviços', price:'180', cents:',00', benefits:['6 serviços por mês','Corte e barba inclusos','Prioridade no agendamento','Atendimento exclusivo aos assinantes','Visual sempre em dia']},
+      cortes4: {number:'03', name:'Cortes 4', subtitle:'Barba / Cabelo', price:'120', cents:',00', benefits:['4 cortes por mês','4 serviços de barba','Prioridade no agendamento','Corte + barba no mesmo atendimento','Visual sempre alinhado']},
+      cortemensal: {number:'04', name:'Corte Mensal', subtitle:'4', price:'120', cents:',00', benefits:['4 cortes por mês','Prioridade no agendamento','Atendimento exclusivo aos assinantes','Corte sempre em dia','Mais praticidade']},
+      corteilimitado: {number:'05', name:'Corte', subtitle:'Ilimitado', price:'79', cents:',90', benefits:['Cortes ilimitados','Prioridade no agendamento','Manutenção sempre que precisar','Mais praticidade','Visual sempre em dia']},
+      cortebarba: {number:'06', name:'Corte + Barba', subtitle:'Ilimitado', price:'159', cents:',90', benefits:['Cortes ilimitados','Barba ilimitada','Prioridade no agendamento','Corte + barba sempre que precisar','Cuidado completo com seu visual']},
+      barbailimitado: {number:'07', name:'Barba', subtitle:'Ilimitado', price:'79', cents:',90', benefits:['Barba ilimitada','Prioridade no agendamento','Manutenção sempre que precisar','Mais praticidade','Barba sempre bem cuidada']}
+    };
+
+    const key = new URLSearchParams(location.search).get('plano') || 'prime';
+    const plan = plans[key] || plans.prime;
+    document.title = plan.name + ' | Barbearia Adventus';
+    document.getElementById('planNumber').textContent = 'PLANO ' + plan.number;
+    document.getElementById('planName').innerHTML = plan.name + '<br><em>' + plan.subtitle + '</em>';
+    document.getElementById('planSubtitle').textContent = 'Tudo o que você precisa para manter seu visual sempre em dia.';
+    document.getElementById('planPrice').innerHTML = '<small>R$</small>' + plan.price + '<sup>' + plan.cents + '</sup><span>/mês</span>';
+    const list = document.getElementById('planBenefits');
+    plan.benefits.forEach((benefit) => {
+      const li = document.createElement('li');
+      li.textContent = benefit;
+      if (benefit.toLowerCase().includes('prioridade no agendamento')) li.className = 'priority';
+      list.appendChild(li);
+    });
+    const msg = encodeURIComponent('Olá! Tenho interesse no plano ' + plan.name + ' ' + plan.subtitle + ', no valor de R$ ' + plan.price + plan.cents + '/mês. Gostaria de saber como posso assinar.');
+    document.getElementById('whatsappPlan').href = 'https://wa.me/5541999466510?text=' + msg;
+  </script>
+</body>
+</html>

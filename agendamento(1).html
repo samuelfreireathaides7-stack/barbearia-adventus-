@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendamento | Barbearia Adventus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.booking-page{min-height:100vh;background:radial-gradient(circle at 80% 10%,#29251d 0,#12110f 35%,#0d0d0c 75%);padding:120px 20px 70px}
+.booking-wrap{max-width:920px;margin:auto}.booking-head{text-align:center;margin-bottom:45px}.booking-head .kicker{display:block}.booking-head h1{font:800 clamp(38px,6vw,65px) "Montserrat";text-transform:uppercase;letter-spacing:-3px;margin:12px 0}.booking-head h1 em{font-family:"Playfair Display";color:var(--gold);text-transform:none}.booking-head p{color:#89847c;font-size:13px}.steps{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);margin-bottom:25px}.step{padding:14px;text-align:center;font-size:9px;letter-spacing:1.5px;color:#6d6961;border-right:1px solid var(--line);text-transform:uppercase}.step:last-child{border:0}.step.active{color:var(--gold);background:#191713}.booking-card{background:#151411;border:1px solid var(--line);padding:35px}.booking-card h2{font:700 24px "Montserrat";margin-bottom:7px}.booking-card>p{color:#77736b;font-size:12px;margin-bottom:28px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.choice{border:1px solid rgba(255,255,255,.09);padding:18px;text-align:left;background:#10100e;transition:.25s}.choice:hover,.choice.selected{border-color:var(--gold);background:#1c1914}.choice strong{display:block;font-size:13px}.choice span{display:block;color:var(--gold);font-size:11px;margin-top:8px}
+.barbers .choice{min-height:105px;display:flex;align-items:center;gap:14px;padding:12px}
+.barber-choice img{width:76px;height:76px;object-fit:cover;border-radius:6px;border:1px solid rgba(244,196,0,.38);flex:0 0 76px;background:#08090b}
+.barber-choice div{min-width:0}
+.barber-choice:hover img,.barber-choice.selected img{border-color:var(--gold)}.booking-actions{display:flex;justify-content:space-between;margin-top:30px}.booking-actions button{min-height:48px;padding:0 22px}.back{border:1px solid var(--line);color:#aaa}.continue{background:var(--gold);color:#111;font-size:10px;text-transform:uppercase;font-weight:800;letter-spacing:1.5px}.booking-panel{display:none}.booking-panel.active{display:block}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#99938a}.field input,.field select{width:100%;margin-top:7px;padding:14px;background:#0e0e0c;border:1px solid rgba(255,255,255,.1);color:#eee;outline:none}.summary{background:#0f0f0d;border-left:2px solid var(--gold);padding:20px;margin-top:20px;color:#a6a198;font-size:12px;line-height:1.8}.success{text-align:center;padding:30px}.success-mark{width:60px;height:60px;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;margin:0 auto 20px;font-size:25px}.success h2{font:700 27px "Montserrat";margin-bottom:10px}.success p{color:#817c73;line-height:1.7;font-size:12px}.booking-logo{position:absolute;top:28px;left:35px;width:100px;height:55px;object-fit:contain}.home-link{position:absolute;top:40px;right:35px;color:#aaa;font-size:10px;text-transform:uppercase;letter-spacing:1.5px}.home-link:hover{color:var(--gold)}
+@media(max-width:650px){.booking-page{padding-top:105px}.booking-logo{top:18px;left:18px}.home-link{top:28px;right:18px}.steps{grid-template-columns:repeat(5,1fr)}.step{font-size:6px;padding:11px 2px}.booking-card{padding:22px}.choices,.field-grid{grid-template-columns:1fr}.barber-choice img{width:68px;height:68px;flex-basis:68px}.booking-actions{gap:10px}.booking-actions button{flex:1}}
+</style>
+</head>
+<body>
+<a href="index.html"><img class="booking-logo" src="logo.png" alt="Barbearia Adventus"></a><a class="home-link" href="index.html">← Voltar ao site</a>
+<main class="booking-page"><div class="booking-wrap">
+<header class="booking-head"><span class="kicker">BARBEARIA ADVENTUS</span><h1>Seu horário,<br><em>do seu jeito.</em></h1><p>Escolha o serviço e avance para montar seu agendamento.</p></header>
+<div class="steps"><div class="step active">01 · Serviço</div><div class="step">02 · Barbeiro</div><div class="step">03 · Data</div><div class="step">04 · Horário</div><div class="step">05 · Agendar</div></div>
+<section class="booking-card">
+<div class="booking-panel active" data-panel="0"><h2>Selecione o serviço</h2><p>Escolha uma opção para continuar.</p><div class="choices" id="services">
+<button class="choice" data-name="Sobrancelhas" data-price="R$ 20,00"><strong>Sobrancelhas</strong><span>R$ 20,00</span></button>
+<button class="choice" data-name="Só máquina" data-price="R$ 20,00"><strong>Só máquina</strong><span>R$ 20,00</span></button>
+<button class="choice" data-name="Máquina + lâmina / shaving" data-price="R$ 25,00"><strong>Máquina + lâmina / shaving</strong><span>R$ 25,00</span></button>
+<button class="choice" data-name="Limpeza de pele com máscara negra" data-price="R$ 20,00"><strong>Limpeza de pele com máscara negra</strong><span>R$ 20,00</span></button>
+<button class="choice" data-name="Hidratação" data-price="R$ 40,00"><strong>Hidratação</strong><span>R$ 40,00</span></button>
+<button class="choice" data-name="Corte social" data-price="R$ 35,00"><strong>Corte social</strong><span>R$ 35,00</span></button>
+<button class="choice" data-name="Corte" data-price="R$ 40,00"><strong>Corte</strong><span>R$ 40,00</span></button>
+<button class="choice" data-name="Cera orelha" data-price="A partir de R$ 15,00"><strong>Cera orelha</strong><span>A partir de R$ 15,00</span></button>
+<button class="choice" data-name="Cera nariz" data-price="R$ 15,00"><strong>Cera nariz</strong><span>R$ 15,00</span></button>
+<button class="choice" data-name="Barboterapia" data-price="R$ 40,00"><strong>Barboterapia</strong><span>R$ 40,00</span></button>
+<button class="choice" data-name="Barba normal" data-price="R$ 35,00"><strong>Barba normal</strong><span>R$ 35,00</span></button>
+</div><div class="booking-actions"><a class="back" href="index.html">Cancelar</a><button class="continue" data-next>Continuar →</button></div></div>
+
+<div class="booking-panel" data-panel="1"><h2>Escolha o barbeiro</h2><p>Selecione o profissional com quem deseja realizar o atendimento.</p><div class="choices barbers" id="barbers">
+<button class="choice barber-choice" data-barber="Horácio"><img src="barbeirohoracio.jfif" alt="Barbeiro Horácio"><div><strong>Horácio</strong><span>Selecionar profissional</span></div></button>
+<button class="choice barber-choice" data-barber="Matheus"><img src="barbeiromatheus.jpeg" alt="Barbeiro Matheus"><div><strong>Matheus</strong><span>Selecionar profissional</span></div></button>
+<button class="choice barber-choice" data-barber="Vitor"><img src="barbeirovitor.jpg" alt="Barbeiro Vitor"><div><strong>Vitor</strong><span>Selecionar profissional</span></div></button>
+</div><div class="booking-actions"><button class="back" data-prev>← Voltar</button><button class="continue" data-next>Continuar →</button></div></div>
+
+<div class="booking-panel" data-panel="2"><h2>Escolha a data</h2><p>Selecione o dia em que deseja ser atendido.</p><div class="field-grid"><div class="field"><label>Data<input id="date" type="date"></label></div></div><div class="booking-actions"><button class="back" data-prev>← Voltar</button><button class="continue" data-next>Continuar →</button></div></div>
+
+<div class="booking-panel" data-panel="3"><h2>Escolha o horário</h2><p>Selecione um horário para a sua preferência.</p><div class="choices" id="times"></div><div class="booking-actions"><button class="back" data-prev>← Voltar</button><button class="continue" data-next>Continuar →</button></div></div>
+
+<div class="booking-panel" data-panel="4"><h2>Confirme seus dados</h2><p>Confira as informações antes de enviar o pedido de agendamento.</p><div class="field-grid"><div class="field"><label>Nome<input id="clientName" placeholder="Seu nome"></label></div><div class="field"><label>WhatsApp<input id="clientPhone" placeholder="(41) 99999-9999"></label></div></div><div class="summary" id="summary"></div><div class="booking-actions"><button class="back" data-prev>← Voltar</button><button class="continue" id="confirm">Enviar pelo WhatsApp ↗</button></div></div>
+
+<div class="booking-panel" data-panel="5"><div class="success"><div class="success-mark">✓</div><h2>Solicitação preparada.</h2><p>O WhatsApp será aberto para você enviar os detalhes à Barbearia Adventus e confirmar a disponibilidade.</p></div></div>
+</section>
+</div></main>
+<script>
+const panels=[...document.querySelectorAll('.booking-panel')],steps=[...document.querySelectorAll('.step')];
+let current=0,state={service:'',price:'',barber:'',date:'',time:''};
+const go=i=>{current=Math.max(0,Math.min(5,i));panels.forEach((p,n)=>p.classList.toggle('active',n===current));steps.forEach((x,n)=>{x.classList.toggle('active',n===current);x.classList.toggle('done',n<current)});if(current===4)summary()};
+document.querySelectorAll('.choice[data-name]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.choice[data-name]').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');state.service=b.dataset.name;state.price=b.dataset.price}));
+document.querySelectorAll('#barbers .choice').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#barbers .choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');state.barber=b.dataset.barber}));
+const date=document.getElementById('date'),today=new Date();date.min=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().split('T')[0];date.addEventListener('change',e=>state.date=e.target.value);
+const times=document.getElementById('times');['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'].forEach(t=>{const b=document.createElement('button');b.className='choice';b.innerHTML='<strong>'+t+'</strong><span>Selecionar horário</span>';b.onclick=()=>{document.querySelectorAll('#times .choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');state.time=t};times.appendChild(b)});
+document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>{if(current===0&&!state.service)return alert('Selecione um serviço.');if(current===1&&!state.barber)return alert('Selecione um barbeiro.');if(current===2&&!state.date)return alert('Selecione uma data.');if(current===3&&!state.time)return alert('Selecione um horário.');go(current+1)}));
+document.querySelectorAll('[data-prev]').forEach(b=>b.addEventListener('click',()=>go(current-1)));
+function summary(){document.getElementById('summary').innerHTML='<strong style="color:#f4c400">RESUMO DO AGENDAMENTO</strong><br>Serviço: '+state.service+' · '+state.price+'<br>Barbeiro: '+state.barber+'<br>Data: '+new Date(state.date+'T12:00:00').toLocaleDateString('pt-BR')+' · Horário: '+state.time}
+document.getElementById('confirm').addEventListener('click',()=>{const name=document.getElementById('clientName').value.trim(),phone=document.getElementById('clientPhone').value.trim();if(!name||!phone)return alert('Preencha seu nome e WhatsApp.');const msg='Olá! Gostaria de solicitar um agendamento na Barbearia Adventus.\n\n*Nome:* '+name+'\n*WhatsApp:* '+phone+'\n*Serviço:* '+state.service+'\n*Valor:* '+state.price+'\n*Barbeiro:* '+state.barber+'\n*Data:* '+new Date(state.date+'T12:00:00').toLocaleDateString('pt-BR')+'\n*Horário desejado:* '+state.time+'\n\nPoderiam confirmar a disponibilidade?';go(5);setTimeout(()=>window.open('https://wa.me/5541999466510?text='+encodeURIComponent(msg),'_blank'),250)});
+</script>
+</body>
+</html>

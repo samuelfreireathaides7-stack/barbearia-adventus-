@@ -1,0 +1,4 @@
+A nova página segue o fluxo: Serviço -> Barbeiro -> Data -> Horário -> Agendar.
+Os serviços e preços foram preservados do arquivo enviado.
+O arquivo original não informa os nomes dos barbeiros; por isso a página usa Barbeiro 1, Barbeiro 2, Barbeiro 3 e Barbeiro 4 como placeholders. Substitua esses quatro nomes no agendamento.html pelos nomes reais.
+O botão final abre o WhatsApp da Adventus com o resumo do agendamento.
